@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - cicd_split_test_multiprocessing_idempotent
   pull_request:
     branches:
       - main
