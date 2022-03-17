@@ -983,6 +983,8 @@ class TestAllEstimators(BaseFixtureGenerator, QuickTester):
         """
         params = estimator_instance.get_params()
 
+        assert False
+
         if "n_jobs" in params:
             for method in NON_STATE_CHANGING_METHODS:
                 if _has_capability(estimator_instance, method):
