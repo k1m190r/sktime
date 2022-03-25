@@ -23,6 +23,7 @@ forecaster = NaiveForecaster()
 param_grid = {"strategy": ["last", "mean", "drift"]}
 gscv = ForecastingGridSearchCV(forecaster=forecaster, param_grid=param_grid, cv=cv)
 gscv.fit(y)
+
 # %%
 y_pred = gscv.predict(fh)
 
@@ -55,3 +56,27 @@ gscv = ForecastingGridSearchCV(
 )
 gscv.fit(y)
 y_pred = gscv.predict(fh=[1, 2, 3])
+
+import numpy as np
+
+# %%
+from sktime.datasets import load_shampoo_sales
+from sktime.forecasting.base import ForecastingHorizon
+from sktime.forecasting.exp_smoothing import ExponentialSmoothing
+from sktime.forecasting.model_evaluation._functions import _split
+
+y = load_shampoo_sales()
+X = None
+train = np.arange(24)
+test = np.array([24, 25, 26])
+fh = [1, 2, 3]
+fit_params = {}
+
+forecaster = ExponentialSmoothing(trend="mul", sp=12)
+y_train, y_test, X_train, X_test = _split(y, X, train, test, fh)
+fh = ForecastingHorizon(y_test.index, is_relative=False)
+forecaster.fit(y_train, X_train, fh=fh, **fit_params)
+y_pred = forecaster.predict(fh, X=X_test)
+y_pred
+
+# %%

@@ -4,6 +4,7 @@ show_missing = True
 [run]
 source = sktime
 include = */sktime/*
+data_file = testdir/coverage
 omit =
     */setup.py
     */sktime/__init__.py

@@ -202,6 +202,11 @@ class BaseGridSearch(BaseForecaster):
 
         def _fit_and_score(params):
             # Clone forecaster.
+            debug = False
+            if params.get("forecaster") is not None:
+                fn = type(params["forecaster"]).__name__
+                debug = fn == "ExponentialSmoothing"
+
             forecaster = clone(self.forecaster)
 
             # Set parameters.
@@ -216,6 +221,7 @@ class BaseGridSearch(BaseForecaster):
                 strategy=self.strategy,
                 scoring=scoring,
                 fit_params=fit_params,
+                debug=debug,
             )
 
             # Filter columns.

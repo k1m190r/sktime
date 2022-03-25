@@ -6,6 +6,7 @@
 __author__ = ["Martin Walter", "Markus Löning"]
 __all__ = ["evaluate"]
 
+import os
 import time
 
 import numpy as np
@@ -31,6 +32,7 @@ def evaluate(
     scoring=None,
     fit_params=None,
     return_data=False,
+    debug=False,
 ):
     """Evaluate forecaster using timeseries cross-validation.
 
@@ -78,6 +80,8 @@ def evaluate(
     ...     fh=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     >>> results = evaluate(forecaster=forecaster, y=y, cv=cv)
     """
+    print()
+
     _check_strategy(strategy)
     cv = check_cv(cv, enforce_start_with_window=True)
     scoring = check_scoring(scoring)
@@ -108,6 +112,10 @@ def evaluate(
         if i == 0 or strategy == "refit":
             forecaster = clone(forecaster)
             forecaster.fit(y_train, X_train, fh=fh, **fit_params)
+            if debug:
+                print()
+                for p in (y_train.sum(), X_train, fh, fit_params):
+                    print(p)
 
         else:  # if strategy == "update":
             forecaster.update(y_train, X_train)
@@ -116,6 +124,13 @@ def evaluate(
         # predict
         start_pred = time.perf_counter()
         y_pred = forecaster.predict(fh, X=X_test)
+        if debug:
+            print(f"{os.getpid()}: {fh}\n{X_test}\n{y_pred}\n")
+        # if np.isnan(y_pred.values).all():
+        #     print(os.getpid(), "All NONE")
+        #     print(os.getpid(), fh)
+        #     print(os.getpid(), X_test)
+        #     print()
         pred_time = time.perf_counter() - start_pred
 
         # score

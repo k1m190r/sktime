@@ -1540,11 +1540,11 @@ def mean_absolute_percentage_error(
     >>> mean_absolute_percentage_error(y_true, y_pred, multioutput=[0.3, 0.7])
     0.5668686868686869
     """
-    warn(
-        "In the percentage error metric functions the default argument "
-        "symmetric=True is changing to symmetric=False in v0.12.0.",
-        FutureWarning,
-    )
+    # warn(
+    #     "In the percentage error metric functions the default argument "
+    #     "symmetric=True is changing to symmetric=False in v0.12.0.",
+    #     FutureWarning,
+    # )
     _, y_true, y_pred, multioutput = _check_reg_targets(y_true, y_pred, multioutput)
     if horizon_weight is not None:
         check_consistent_length(y_true, horizon_weight)
