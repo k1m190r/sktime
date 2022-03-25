@@ -41,10 +41,7 @@ gscv = ForecastingGridSearchCV(
             "forecaster": [NaiveForecaster(sp=12)],
             "forecaster__strategy": ["drift", "last", "mean"],
         },
-        {
-            "imputer__method": ["mean", "drift"],
-            "forecaster": [ThetaForecaster(sp=12)],
-        },
+        {"imputer__method": ["mean", "drift"], "forecaster": [ThetaForecaster(sp=12)],},
         {
             "imputer__method": ["mean", "last"],
             "forecaster": [ExponentialSmoothing(sp=12)],
@@ -57,9 +54,9 @@ gscv = ForecastingGridSearchCV(
 gscv.fit(y)
 y_pred = gscv.predict(fh=[1, 2, 3])
 
-import numpy as np
 
 # %%
+import numpy as np
 from sktime.datasets import load_shampoo_sales
 from sktime.forecasting.base import ForecastingHorizon
 from sktime.forecasting.exp_smoothing import ExponentialSmoothing
