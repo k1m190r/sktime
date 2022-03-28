@@ -6,6 +6,7 @@
 __author__ = ["Martin Walter", "Markus Löning"]
 __all__ = ["evaluate"]
 
+import os
 import time
 import os
 
@@ -80,6 +81,8 @@ def evaluate(
     ...     fh=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     >>> results = evaluate(forecaster=forecaster, y=y, cv=cv)
     """
+    print()
+
     _check_strategy(strategy)
     cv = check_cv(cv, enforce_start_with_window=True)
     scoring = check_scoring(scoring)
@@ -123,11 +126,12 @@ def evaluate(
         start_pred = time.perf_counter()
         y_pred = forecaster.predict(fh, X=X_test)
         if debug:
-            print(f"{os.getpid()}: {fh}\n{X_test}\n{y_pred}")
-
-        if np.isnan(y_pred.values).all():
-            print(os.getpid(), "All NONE")
-
+            print(f"{os.getpid()}: {fh}\n{X_test}\n{y_pred}\n")
+        # if np.isnan(y_pred.values).all():
+        #     print(os.getpid(), "All NONE")
+        #     print(os.getpid(), fh)
+        #     print(os.getpid(), X_test)
+        #     print()
         pred_time = time.perf_counter() - start_pred
 
         # score
