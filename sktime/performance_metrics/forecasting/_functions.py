@@ -1213,10 +1213,7 @@ def median_squared_error(
 
 
 def geometric_mean_absolute_error(
-    y_true,
-    y_pred,
-    horizon_weight=None,
-    multioutput="uniform_average",
+    y_true, y_pred, horizon_weight=None, multioutput="uniform_average",
 ):
     """Geometric mean absolute error (GMAE).
 
@@ -1304,9 +1301,7 @@ def geometric_mean_absolute_error(
     else:
         check_consistent_length(y_true, horizon_weight)
         output_errors = _weighted_geometric_mean(
-            np.abs(errors),
-            sample_weight=horizon_weight,
-            axis=0,
+            np.abs(errors), sample_weight=horizon_weight, axis=0,
         )
 
     if isinstance(multioutput, str):
@@ -1428,9 +1423,7 @@ def geometric_mean_squared_error(
     else:
         check_consistent_length(y_true, horizon_weight)
         output_errors = _weighted_geometric_mean(
-            np.square(errors),
-            sample_weight=horizon_weight,
-            axis=0,
+            np.square(errors), sample_weight=horizon_weight, axis=0,
         )
 
     if square_root:
@@ -1540,11 +1533,11 @@ def mean_absolute_percentage_error(
     >>> mean_absolute_percentage_error(y_true, y_pred, multioutput=[0.3, 0.7])
     0.5668686868686869
     """
-    warn(
-        "In the percentage error metric functions the default argument "
-        "symmetric=True is changing to symmetric=False in v0.12.0.",
-        FutureWarning,
-    )
+    # warn(
+    #     "In the percentage error metric functions the default argument "
+    #     "symmetric=True is changing to symmetric=False in v0.12.0.",
+    #     FutureWarning,
+    # )
     _, y_true, y_pred, multioutput = _check_reg_targets(y_true, y_pred, multioutput)
     if horizon_weight is not None:
         check_consistent_length(y_true, horizon_weight)
@@ -1947,8 +1940,7 @@ def median_squared_percentage_error(
     else:
         check_consistent_length(y_true, horizon_weight)
         output_errors = _weighted_percentile(
-            np.square(perc_err),
-            sample_weight=horizon_weight,
+            np.square(perc_err), sample_weight=horizon_weight,
         )
 
     if square_root:
@@ -1965,11 +1957,7 @@ def median_squared_percentage_error(
 
 
 def mean_relative_absolute_error(
-    y_true,
-    y_pred,
-    horizon_weight=None,
-    multioutput="uniform_average",
-    **kwargs,
+    y_true, y_pred, horizon_weight=None, multioutput="uniform_average", **kwargs,
 ):
     """Mean relative absolute error (MRAE).
 
@@ -2185,11 +2173,7 @@ def median_relative_absolute_error(
 
 
 def geometric_mean_relative_absolute_error(
-    y_true,
-    y_pred,
-    horizon_weight=None,
-    multioutput="uniform_average",
-    **kwargs,
+    y_true, y_pred, horizon_weight=None, multioutput="uniform_average", **kwargs,
 ):
     """Geometric mean relative absolute error (GMRAE).
 

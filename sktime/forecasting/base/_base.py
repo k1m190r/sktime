@@ -258,10 +258,7 @@ class BaseForecaster(BaseEstimator):
             if not self._has_predict_quantiles_been_refactored():
                 # this means the method is not refactored
                 y_pred = self._predict(
-                    self.fh,
-                    X=X_inner,
-                    return_pred_int=return_pred_int,
-                    alpha=alpha,
+                    self.fh, X=X_inner, return_pred_int=return_pred_int, alpha=alpha,
                 )
 
                 # returns old return type anyways
@@ -280,10 +277,7 @@ class BaseForecaster(BaseEstimator):
                 if keep_old_return_type:
                     pred_int = self._convert_new_to_old_pred_int(pred_int, alpha)
 
-            y_pred = self._predict(
-                self.fh,
-                X=X_inner,
-            )
+            y_pred = self._predict(self.fh, X=X_inner,)
             # convert to output mtype, identical with last y mtype seen
             y_out = convert_to(
                 y_pred,
@@ -420,10 +414,7 @@ class BaseForecaster(BaseEstimator):
         return quantiles
 
     def predict_interval(
-        self,
-        fh=None,
-        X=None,
-        coverage=0.90,
+        self, fh=None, X=None, coverage=0.90,
     ):
         """Compute/return prediction interval forecasts.
 
@@ -485,9 +476,7 @@ class BaseForecaster(BaseEstimator):
         return pred_int
 
     def predict_var(
-        self,
-        fh=None,
-        X=None,
+        self, fh=None, X=None,
     ):
         """Compute/return variance forecasts.
 
@@ -536,9 +525,7 @@ class BaseForecaster(BaseEstimator):
         return pred_var
 
     def predict_proba(
-        self,
-        fh=None,
-        X=None,
+        self, fh=None, X=None,
     ):
         """Compute/return fully probabilistic forecasts.
 
@@ -1746,9 +1733,7 @@ class BaseForecaster(BaseEstimator):
         return pred_int
 
     def _predict_var(
-        self,
-        fh=None,
-        X=None,
+        self, fh=None, X=None,
     ):
         """Compute/return variance forecasts.
 
